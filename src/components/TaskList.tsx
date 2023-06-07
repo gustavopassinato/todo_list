@@ -1,5 +1,6 @@
+import { Task } from './Task'
 import styles from './TaskList.module.css'
-import { TaskListEmpty } from './TaskListEmpty'
+// import { TaskListEmpty } from './TaskListEmpty'
 
 export function TaskList() {
   return (
@@ -15,7 +16,14 @@ export function TaskList() {
           <span>0</span>
         </div>
       </header>
-      <TaskListEmpty />
+
+      <div className={styles.taskListContent}>
+        {/* <TaskListEmpty /> */}
+        <Task />
+        <Task />
+        <Task />
+        <Task />
+      </div>
     </section>
   )
 }

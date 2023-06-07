@@ -1,0 +1,31 @@
+.radio {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background-color: transparent;
+
+}
+
+.radio:hover {
+  border: 2px solid var(--blue-dark);
+  background-color: var(--blue-dark-20) ;
+  cursor: pointer;
+}
+
+.radioChecked {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border:none;
+  background-color: var(--purple-dark);
+  background-image: url('../assets/check.svg');
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+.radioChecked:hover {
+  background-color: var(--purple);
+  cursor: pointer;
+} 

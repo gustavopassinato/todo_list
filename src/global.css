@@ -1,5 +1,6 @@
 :root {
-  --blue-dark: #1E6F9F;
+  --blue-dark: rgb(30, 111, 159);
+  --blue-dark-20: rgb(30, 111, 159,0.2);
   --blue: #4EA8DE;
   --purple-dark: #5E60CE;
   --purple: #8284FA;
