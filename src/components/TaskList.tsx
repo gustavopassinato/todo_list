@@ -1,6 +1,5 @@
 import styles from './TaskList.module.css'
-
-import clipboard from '../assets/clipboard.svg'
+import { TaskListEmpty } from './TaskListEmpty'
 
 export function TaskList() {
   return (
@@ -16,15 +15,7 @@ export function TaskList() {
           <span>0</span>
         </div>
       </header>
-
-      <div className={styles.taskList}>
-        <img
-          src={clipboard}
-          alt="Imagem para quando não houver nenhuma tarefa criada"
-        />
-        <strong>Você ainda não tem tarefas cadastradas</strong>
-        <p>Crie tarefas e organize seus itens a fazer</p>
-      </div>
+      <TaskListEmpty />
     </section>
   )
 }
