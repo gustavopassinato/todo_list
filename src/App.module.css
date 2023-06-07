@@ -1,4 +1,8 @@
 .main {
   width: 46rem;
   margin: -1.6875rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
 }
