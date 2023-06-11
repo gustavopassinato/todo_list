@@ -1,28 +1,131 @@
 import { Task } from './Task'
+import { PlusCircle } from '@phosphor-icons/react'
 import styles from './TaskList.module.css'
-// import { TaskListEmpty } from './TaskListEmpty'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { TaskListEmpty } from './TaskListEmpty'
+
+export interface TaskInterface {
+  id: number
+  content: string
+  status: boolean
+}
+
+interface TaskListInterface {
+  tasks: TaskInterface[]
+  totalDoneTasks: number
+}
+
+const initialTaskList: TaskListInterface = {
+  tasks: [],
+  totalDoneTasks: 0,
+}
 
 export function TaskList() {
+  const [taskList, setTaskList] = useState(initialTaskList)
+
+  const [taskTextInput, setTaskTextInput] = useState('')
+
+  const [totalCreatedTasks, setTotalCreatedTask] = useState(
+    taskList.tasks.length,
+  )
+
+  const [totalDoneTasks, setTotalDoneTasks] = useState(
+    taskList.totalDoneTasks.toString(),
+  )
+
+  function handleNewTask(event: FormEvent) {
+    event.preventDefault()
+    const newTask: TaskInterface = {
+      id: taskList.tasks.length + 1,
+      content: taskTextInput,
+      status: false,
+    }
+    const newTaskList: TaskListInterface = {
+      tasks: [newTask, ...taskList.tasks],
+      totalDoneTasks: taskList.totalDoneTasks,
+    }
+
+    setTaskList(newTaskList)
+    setTaskTextInput('')
+    setTotalCreatedTask(newTaskList.tasks.length)
+    changeTotalDoneTasks(
+      newTaskList.totalDoneTasks.toString(),
+      newTaskList.tasks.length,
+    )
+  }
+
+  function handleTaskTextInput(event: ChangeEvent<HTMLInputElement>) {
+    const newTaskContent = event.target.value
+    setTaskTextInput(newTaskContent)
+  }
+
+  function changeTaskStatus(taskToChange: TaskInterface) {
+    const newTasks = taskList.tasks.map((task: TaskInterface) => {
+      if (task.id === taskToChange.id) {
+        task.status = taskToChange.status
+      }
+      return task
+    })
+    let newTotalOfDoneTasks: number = taskList.totalDoneTasks
+    if (taskToChange.status) {
+      newTotalOfDoneTasks = taskList.totalDoneTasks + 1
+    } else if (taskList.totalDoneTasks >= 1) {
+      newTotalOfDoneTasks = taskList.totalDoneTasks - 1
+    }
+    setTaskList({
+      tasks: newTasks,
+      totalDoneTasks: newTotalOfDoneTasks,
+    })
+
+    changeTotalDoneTasks(newTotalOfDoneTasks.toString(), taskList.tasks.length)
+  }
+
+  function changeTotalDoneTasks(totalTasksDone: string, totalTasks: number) {
+    setTotalDoneTasks(`${totalTasksDone} de ${totalTasks}`)
+  }
+
   return (
     <section>
+      <form onSubmit={handleNewTask} className={styles.taskInput}>
+        <input
+          value={taskTextInput}
+          onChange={handleTaskTextInput}
+          placeholder="Adicione uma nova tarefa"
+          className={styles.taskInputText}
+          type="text"
+        />
+
+        <button className={styles.taskInputSubmit} type="submit">
+          Criar <PlusCircle size={20} />
+        </button>
+      </form>
+
       <header className={styles.taskListHeader}>
         <div className={styles.taskListCreated}>
           Tarefas criadas
-          <span>0</span>
+          <span>{totalCreatedTasks}</span>
         </div>
 
         <div className={styles.taskListDone}>
           Tarefas concluídas
-          <span>0</span>
+          <span>{totalDoneTasks}</span>
         </div>
       </header>
 
       <div className={styles.taskListContent}>
-        {/* <TaskListEmpty /> */}
-        <Task />
-        <Task />
-        <Task />
-        <Task />
+        {taskList.tasks.length === 0 ? (
+          <TaskListEmpty />
+        ) : (
+          taskList.tasks.map((task: TaskInterface) => {
+            return (
+              <Task
+                key={task.id}
+                task={task}
+                changeTaskStatus={changeTaskStatus}
+              />
+            )
+          })
+        )}
       </div>
     </section>
   )

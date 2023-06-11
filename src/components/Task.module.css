@@ -6,8 +6,7 @@
   border: 1px solid var(--gray-400);
 
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+  justify-content: space-between;
 }
 
 .taskContainer + .taskContainer {
@@ -15,10 +14,29 @@
 }
 
 .taskText {
-  width: 39.5rem;
+  width: 100%;
   font-size: 0.875rem;
   line-height: 1.4;
   color: var(--gray-100);
+  overflow-wrap: break-word;
+}
+
+.taskTextDone {
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
+.taskTextWrapper {
+  width: 39.5rem;
+  display: flex;
+  padding: 0rem 0.7rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .taskDelete {
@@ -39,3 +57,36 @@
   border-radius: 4px;
   color: var(--red);
 }
+
+.radio {
+  width: 1.09rem;
+  height: 1.09rem;
+  margin: 0.31rem;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background-color: transparent;
+
+}
+
+.radio:hover {
+  border: 2px solid var(--blue-dark);
+  background-color: var(--blue-dark-20) ;
+  cursor: pointer;
+}
+
+.radioChecked {
+  width: 1.09rem;
+  height: 1.09rem;
+  margin: 0.31rem;
+  border-radius: 50%;
+  border:none;
+  background-color: var(--purple-dark);
+  background-image: url('../assets/check.svg');
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+.radioChecked:hover {
+  background-color: var(--purple);
+  cursor: pointer;
+} 
