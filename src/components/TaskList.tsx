@@ -48,10 +48,7 @@ export function TaskList() {
     setTaskList(newTaskList)
     setTaskTextInput('')
     setTotalCreatedTask(newTaskList.tasks.length)
-    changeTotalDoneTasks(
-      newTaskList.totalDoneTasks.toString(),
-      newTaskList.tasks.length,
-    )
+    changeTotalDoneTasks(newTaskList.totalDoneTasks, newTaskList.tasks.length)
   }
 
   function handleTaskTextInput(event: ChangeEvent<HTMLInputElement>) {
@@ -77,11 +74,36 @@ export function TaskList() {
       totalDoneTasks: newTotalOfDoneTasks,
     })
 
-    changeTotalDoneTasks(newTotalOfDoneTasks.toString(), taskList.tasks.length)
+    changeTotalDoneTasks(newTotalOfDoneTasks, taskList.tasks.length)
   }
 
-  function changeTotalDoneTasks(totalTasksDone: string, totalTasks: number) {
+  function changeTotalDoneTasks(totalTasksDone: number, totalTasks: number) {
     setTotalDoneTasks(`${totalTasksDone} de ${totalTasks}`)
+  }
+
+  function deleteTask(taskToDelete: TaskInterface) {
+    let newTotalDoneTasks = taskList.totalDoneTasks
+    const newTaskListWithountDeletedOne = taskList.tasks.filter((task) => {
+      if (task.id !== taskToDelete.id) {
+        return true
+      }
+      return false
+    })
+    if (taskList.totalDoneTasks >= 1 && taskToDelete.status === true) {
+      newTotalDoneTasks = taskList.totalDoneTasks - 1
+    }
+
+    setTaskList({
+      tasks: newTaskListWithountDeletedOne,
+      totalDoneTasks: newTotalDoneTasks,
+    })
+
+    setTotalCreatedTask(newTaskListWithountDeletedOne.length)
+
+    changeTotalDoneTasks(
+      newTotalDoneTasks,
+      newTaskListWithountDeletedOne.length,
+    )
   }
 
   return (
@@ -122,6 +144,7 @@ export function TaskList() {
                 key={task.id}
                 task={task}
                 changeTaskStatus={changeTaskStatus}
+                deleteTask={deleteTask}
               />
             )
           })

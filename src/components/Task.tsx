@@ -7,9 +7,14 @@ import { useState } from 'react'
 interface TaskPropsInterface {
   task: TaskInterface
   changeTaskStatus: (task: TaskInterface) => void
+  deleteTask: (taskToDelete: TaskInterface) => void
 }
 
-export function Task({ task, changeTaskStatus }: TaskPropsInterface) {
+export function Task({
+  task,
+  changeTaskStatus,
+  deleteTask,
+}: TaskPropsInterface) {
   const [taskStatus, setTaskStatus] = useState(task.status)
 
   function handleTaskStatusChange() {
@@ -20,6 +25,10 @@ export function Task({ task, changeTaskStatus }: TaskPropsInterface) {
     }
     setTaskStatus(updatedTask.status)
     changeTaskStatus(updatedTask)
+  }
+
+  function handleDeleteTask() {
+    deleteTask(task)
   }
 
   return (
@@ -34,7 +43,7 @@ export function Task({ task, changeTaskStatus }: TaskPropsInterface) {
           {task.content}
         </p>
       </div>
-      <button className={styles.taskDelete}>
+      <button onClick={handleDeleteTask} className={styles.taskDelete}>
         <Trash size={20} />
       </button>
     </div>
