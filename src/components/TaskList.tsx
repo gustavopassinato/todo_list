@@ -1,7 +1,7 @@
 import { Task } from './Task'
 import { PlusCircle } from '@phosphor-icons/react'
 import styles from './TaskList.module.css'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 import { TaskListEmpty } from './TaskListEmpty'
 
 export interface TaskInterface {
@@ -54,6 +54,7 @@ export function TaskList() {
   function handleTaskTextInput(event: ChangeEvent<HTMLInputElement>) {
     const newTaskContent = event.target.value
     setTaskTextInput(newTaskContent)
+    event.target.setCustomValidity('')
   }
 
   function changeTaskStatus(taskToChange: TaskInterface) {
@@ -106,10 +107,16 @@ export function TaskList() {
     )
   }
 
+  function handleInvalidInput(event: InvalidEvent<HTMLInputElement>) {
+    event.target.setCustomValidity('Este campo é obrigatório!')
+  }
+
   return (
     <section>
       <form onSubmit={handleNewTask} className={styles.taskInput}>
         <input
+          required
+          onInvalid={handleInvalidInput}
           value={taskTextInput}
           onChange={handleTaskTextInput}
           placeholder="Adicione uma nova tarefa"
