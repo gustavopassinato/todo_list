@@ -5,7 +5,8 @@
   border-radius: 8px;
   border: 1px solid var(--gray-400);
 
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.09rem 1fr 1.5rem;
   justify-content: space-between;
 }
 
@@ -18,25 +19,24 @@
   font-size: 0.875rem;
   line-height: 1.4;
   color: var(--gray-100);
-  overflow-wrap: break-word;
 }
 
 .taskTextDone {
   width: 100%;
   font-size: 0.875rem;
   line-height: 1.4;
-  overflow-wrap: break-word;
   color: var(--gray-300);
   text-decoration: line-through;
 }
 
 .taskTextWrapper {
-  width: 39.5rem;
+  width: 100%;
   display: flex;
   padding: 0rem 0.7rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-wrap: break-word;
 }
 
 .taskDelete {
@@ -90,3 +90,5 @@
   background-color: var(--purple);
   cursor: pointer;
 } 
+
+@media (max-width: 768px) {}

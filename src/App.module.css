@@ -3,3 +3,9 @@
   margin: -1.6875rem auto;
   padding: 0rem 1.5rem 2rem;
 }
+
+@media (max-width: 768px) {
+  .main{
+    width: 100%;
+  }
+}

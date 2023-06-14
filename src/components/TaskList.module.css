@@ -73,3 +73,29 @@
   margin: 1.5rem 0rem;
 }
 
+@media (max-width: 768px) {
+  .taskInput { 
+    display: flex;
+    flex-direction: column;
+    height: 7rem;
+  }
+
+  .taskInputSubmit {
+    width: 100%;
+    height: 3.25rem;
+  }
+
+  .taskInputText {
+    width: 100%;
+    height: 3.25rem;
+  }
+
+  .taskListCreated, .taskListDone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+}
